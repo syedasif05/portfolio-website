@@ -71,3 +71,60 @@ $(document).ready(function(){
         }
     });
 });
+
+
+
+// Smooth Scroll:
+$('.navbar .menu li a').on('click', function(e){
+    e.preventDefault();
+    var targetId = $(this).attr('href');
+    $('html, body').animate({
+        scrollTop: $(targetId).offset().top - 50
+    }, 100);
+});
+
+
+// Active Navigation Link:
+$(window).scroll(function(){
+    var scrollPos = $(document).scrollTop() + 80;
+    $('.navbar .menu li a').each(function () {
+        var currLink = $(this);
+        var refElement = $(currLink.attr("href"));
+        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+            $('.navbar .menu li a').removeClass("active");
+            currLink.addClass("active");
+        }
+    });
+});
+
+
+// Form Validation:
+
+$('form').submit(function(e) {
+    var isValid = true;
+    $('form input[required]').each(function() {
+        if ($.trim($(this).val()) === '') {
+            isValid = false;
+            $(this).addClass('error');
+        } else {
+            $(this).removeClass('error');
+        }
+    });
+    if (!isValid) {
+        e.preventDefault();
+        // You can also display an error message
+        alert('Please fill out all required fields.');
+    }
+});
+
+
+// Scroll Reveal Animation:
+// Initialize AOS
+AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true
+});
+
+
+
